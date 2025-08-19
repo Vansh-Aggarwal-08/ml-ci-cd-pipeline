@@ -1,0 +1,40 @@
+name: CI/CD Pipeline
+
+on:
+	push:
+		branches:
+		 - main
+	pull_request:
+		branches:
+		 - main
+
+jobs:
+	build:
+		run-on:  ubuntu-latest
+
+	steps:
+	- name: Checkout code
+	uses: actions/checkout@v1
+	
+	- name: Set up Python
+	uses: action/setup-python@v1
+	with:
+		python-version: '3.13'
+
+	- name: Install dependencies
+	run:|
+		pyhton -m pip install --upgarde pip
+		pip install -r requirements.text
+
+	- name: Train model
+	run: |
+		python model/train.py
+
+	- name: Evaluate model
+	run: |
+		python model/evaluate.py
+
+	- name: Run unit test
+	run: |
+		python -m unittest discover -s tests
+
