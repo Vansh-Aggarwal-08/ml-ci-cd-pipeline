@@ -1,6 +1,7 @@
 import unittest
 import joblib
 from sklearn.ensemble import RandomForestClassifier
+model = joblib.load('model/iris_model.pkl)
 
 class TestModelTraining(unittest.TestCase):
     def test_model_training(self):
